@@ -28,4 +28,15 @@
  */
 export function chaiTapriRevenue(customers) {
   // Your code here
+  if(typeof customers !== 'number' || customers <=0 || Number.isInteger(customers) === false) {
+    return {totalChai:0, totalRevenue:0};
+  }
+
+  const cutting_price = 10; // setting up cutting chai price
+  const adrak_price =15;  // setting up adrak chai price
+  const total_customers = customers; // defining the number of customers
+  const adrak_customers = Math.floor(total_customers/3); // calculating the number of adrak customers
+  const cutting_customers = total_customers - adrak_customers;  // calculating the number of customers who will get cutting chai
+  const total_revenue = cutting_customers * cutting_price + adrak_customers * adrak_price; // calculating the total revenue
+  return {totalChai: total_customers, totalRevenue: total_revenue}; // send the total quantity of chai served and the total revenue earned.
 }

@@ -33,4 +33,33 @@
  */
 export function calculateAutoFare(distance, waitingMinutes = 0) {
   // Your code here
+  // check wether the distance is a positive number if not the return -1
+  if(typeof distance !== 'number' || isNaN(distance) || distance <= 0 ) return -1;
+  // check weather waitingMinutes negative , return -1
+  if(typeof distance !== 'number' || isNaN(waitingMinutes) || waitingMinutes  < 0) return -1;
+
+  const totalKm = Math.ceil(distance);
+  let fare = 0 ; 
+  let km = 1;
+
+  while(km <= totalKm) {
+    if(km == 1) {
+      fare += 30
+    } else if(km >=2 && km <=5) {
+      fare += 15;
+    } else {
+      fare += 10;
+    }
+    km++;
+  }
+
+  // Rs 5 per 2 minutes of waiting
+const waitingCharges = Math.ceil(waitingMinutes / 2);
+
+fare += waitingCharges * 5;
+
+return fare
+
+
+
 }

@@ -37,4 +37,25 @@
  */
 export function rangoli(n) {
   // Your code here
+  if(typeof n !== 'number' || n <= 0 || !Number.isInteger(n)) {
+    return [];
+  }
+
+  const pattern = [];
+
+  // Generate the top half of the diamond (including the middle row)
+  for(let i = 1; i <= n; i++) {
+    const spaces = ' '.repeat(n - i); // Calculate leading spaces for center alignment
+    const stars = '* '.repeat(i).trim(); // Generate stars and trim trailing space
+    pattern.push(spaces + stars); // Add the row to the pattern
+  }
+
+  // Generate the bottom half of the diamond (excluding the middle row)
+  for(let i = n - 1; i >= 1; i--) {
+    const spaces = ' '.repeat(n - i); // Calculate leading spaces for center alignment
+    const stars = '* '.repeat(i).trim(); // Generate stars and trim trailing space
+    pattern.push(spaces + stars); // Add the row to the pattern
+  }
+
+  return pattern;
 }

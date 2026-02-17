@@ -36,4 +36,43 @@
  */
 export function upiRetry(outcomes) {
   // Your code here
+
+  // checking if the outcomes is an array and also it should not be empty
+  if (!Array.isArray(outcomes) || outcomes.length === 0)
+    return { attempts: 0, success: false, totalWaitTime: 0 };
+
+  // initializing variables
+  let attempts = 0 // trying count
+  let success = false // boolean to track if the attempt is successful
+  let totalWaitTime = 0 //totality of time required to complete the transaction
+  let initialWait = 1; // initial wait time or first wait time
+  let MAX_ATTEMPTS = 5; // maximum attempts allowed
+
+  // 2nd step , do while loop , so that atleast 1 attempt is garunteed
+  do {
+    const result = outcomes[attempts];
+
+    // increase attempt count
+    attempts++;
+
+    // if successful then stop
+    if(result === "success") {
+      success = true // set the success to true
+      break;
+    }
+
+    // 2d. Fail hua → wait time add karo (only if we'll retry)
+    if (attempts < MAX_ATTEMPTS && attempts < outcomes.length) {
+      totalWaitTime += initialWait;
+      initialWait *= 2; // Exponential backoff: 1 → 2 → 4 → 8
+    }
+    
+  } while (attempts < MAX_ATTEMPTS && attempts < outcomes.length){
+    // Step 3: Return result
+  return {
+    attempts,
+    success,
+    totalWaitTime,
+  };
+  };
 }
